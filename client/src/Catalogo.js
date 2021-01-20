@@ -63,7 +63,7 @@ const Products = ({ product,order,filter }) => {
     }
     return (
         <div className="card">
-         <div>
+         <div className="orderPrice">
              Ordenar por precio
             <select
                 class="form-control"
@@ -75,7 +75,7 @@ const Products = ({ product,order,filter }) => {
                 <option value="menor">Menor a mayor </option>
             </select>
          </div>
-         <div>
+            <div className="filter">
              filtar por condicion
             <select
                 class="form-control"
@@ -87,6 +87,8 @@ const Products = ({ product,order,filter }) => {
                 <option value="used">Usado</option>
             </select>
          </div>
+         <div className="container">
+             
            {  
                 currentPosts.map((e,i) => {
                   return <Product 
@@ -98,7 +100,8 @@ const Products = ({ product,order,filter }) => {
                   condition={e.condition}
                   />
                })
-           }
+            }
+            </div>
             <div className="flexThis pagination">
                 {arr.map((number) => {
                     return (
@@ -111,7 +114,7 @@ const Products = ({ product,order,filter }) => {
                     )
                 })}
             </div>
-        </div>
+    </div>
     );
 };
 
