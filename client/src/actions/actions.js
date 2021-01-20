@@ -32,3 +32,9 @@ export function keepInput(payload) {
         payload
     };
 }
+export function cache(payload) {
+    return {
+        type: 'CACHE',
+        payload
+    };
+}

@@ -1,13 +1,13 @@
 import { Navbar ,Form,FormControl,Button } from 'react-bootstrap';
 import React, { useState } from 'react';
-import { search, keepInput} from './actions/actions'
+import { search, keepInput,cache} from './actions/actions'
 import { connect } from "react-redux";
 
-function SearchBar({ search, product, keepInput}) {
+function SearchBar({ search, product, keepInput, cache}) {
   const [input,setInput] = useState('')
   const products=product.products
-
-
+  const dataCache=product.cache
+console.log(dataCache)
   const handleSubmit = (e) => {
         e.preventDefault();
     };
@@ -20,7 +20,12 @@ function SearchBar({ search, product, keepInput}) {
         
     }
     const handleClick =()=>{
-        
+        // var find = dataCache.find(e=>e.tile === input)
+        // console.log("find searchbar",find)
+        // if(find){
+        //     cache(find.info)
+        // }else{
+        // }
         search(input)
         
         keepInput(input)
@@ -55,7 +60,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         search: input => dispatch(search(input)),
-        keepInput: input => dispatch(keepInput(input))  
+        keepInput: input => dispatch(keepInput(input)), 
+        cache: input => dispatch(cache(input))  
     };
 }
 

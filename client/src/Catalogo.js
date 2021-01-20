@@ -5,15 +5,7 @@ import { order, filter, search} from './actions/actions'
 import { useState, useEffect } from 'react';
 
 const Products = ({ product, order, filter, search }) => {
-    // const [data,setData]=useState([])
-    // useEffect(
-    //     () => {
-    //             setData({
-    //                 data:product.products
-    //             })
-    //     },
-    //     [product.products]
-    //     );
+ 
     var  products = product.products
     var  inputA=product.input
     var copy = product.copyProducts
@@ -25,7 +17,7 @@ const Products = ({ product, order, filter, search }) => {
 
         })
     
-    const handleChange = async (e) =>{
+    const handleChange =  (e) =>{
         // console.log(e.target.value)
         if(e.target.value === 'menor'){
             
@@ -61,7 +53,7 @@ const Products = ({ product, order, filter, search }) => {
                  filter(find)
             }
             if(e.target.value === 'todos'){
-                search(inputA)
+                filter(copy)
             }
     }
    
@@ -108,7 +100,7 @@ const Products = ({ product, order, filter, search }) => {
                 <option value="todos">Todos</option>
             </select>
          </div>
-             <h2>Pagina {input.page}</h2>
+             <h2 className="pagina">Pagina {input.page}</h2>
          <div className="container">
            {  
                 currentPosts.map((e,i) => {
