@@ -10,6 +10,9 @@ server.get('/api/search',  (req, res)=> {
     console.log("query",query)
     axios.get(`https://api.mercadolibre.com/sites/MLA/search?q=${query}`)
     .then(resp => {
+        if(posts[0]){
+            posts=[]
+        }
         resp.data.results.map(e=>{
             obj={
                 query,
@@ -23,7 +26,7 @@ server.get('/api/search',  (req, res)=> {
             }
             posts.push(obj)
         })
-        res.send(resp.data.results)
+        res.send(posts)
     })
 })
 

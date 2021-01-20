@@ -2,11 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Product from './Product'
 import { order, filter, search} from './actions/actions'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Products = ({ product, order, filter, search }) => {
+    // const [data,setData]=useState([])
+    // useEffect(
+    //     () => {
+    //             setData({
+    //                 data:product.products
+    //             })
+    //     },
+    //     [product.products]
+    //     );
     var  products = product.products
     var  inputA=product.input
+    var copy = product.copyProducts
    
         const [input, setInput] = useState({
             currentPage: 1,
@@ -15,41 +25,47 @@ const Products = ({ product, order, filter, search }) => {
 
         })
     
-    const handleChange = (e) =>{
+    const handleChange = async (e) =>{
         // console.log(e.target.value)
         if(e.target.value === 'menor'){
+            
             var productsOrder =products.sort(function (prev, next) {
                 return prev.price - next.price
             })
-            order(productsOrder)
+             order(productsOrder)
         }
         if(e.target.value === 'mayor'){
+       
+
             var productsOrder =products.sort(function (prev, next) {
                 return prev.price - next.price
             })
-            order(productsOrder.reverse())
+             order(productsOrder.reverse())
         }
     }
-    const handleChangeC =   (e) =>{
+    const handleChangeC =  (e) =>{
         if(e.target.value === 'new'){
-        //    await  search(inputA)
-            
-            var find = products.filter(e => 
-                e.condition === 'new'
-            )
-            filter(find)
-        }
-        if(e.target.value === 'used'){
-            var find = products.filter(e =>
-                e.condition !== 'new'
-            )
-            filter(find)
-        }
-        if(e.target.value === 'todos'){
-            search(inputA)
-        }
+            var aux=[]
+            copy.map(e=>aux.push(e))
+                var find = aux.filter(e => 
+                    e.condition === 'new'
+                )
+                 filter(find)
+            }
+            if(e.target.value === 'used'){
+                var aux = []
+                copy.map(e => aux.push(e))
+                var find = aux.filter(e =>
+                    e.condition === 'used'
+                )
+                 filter(find)
+            }
+            if(e.target.value === 'todos'){
+                search(inputA)
+            }
     }
    
+    // console.log("data", data.data)
 
     const indexOfLastPost = input.currentPage * input.postsPerPage;
     const indexOfFirstPost = indexOfLastPost - input.postsPerPage;

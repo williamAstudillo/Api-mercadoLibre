@@ -7,7 +7,8 @@ export function search(payload) {
             .then((res) => {
                dispatch({ 
                type: 'SEARCH', 
-               payload: res.data 
+               payload: res.data,
+               text:payload.input
             });
             })
             .catch((e) => console.log('error auxilio search '));
