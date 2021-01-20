@@ -1,5 +1,6 @@
 const INITIAL_STATE = {
-    products: []
+    products: [],
+    input:''
 };
 
 const search = (state = INITIAL_STATE, action) => {
@@ -18,6 +19,11 @@ const search = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 products: action.payload,
+            };
+        case 'INPUT':
+            return {
+                ...state,
+                input: action.payload,
             };
         default:
             return state;

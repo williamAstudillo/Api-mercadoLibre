@@ -25,3 +25,9 @@ export function filter(payload) {
         payload
     };
 }
+export function keepInput(payload) {
+    return {
+        type: 'INPUT',
+        payload
+    };
+}

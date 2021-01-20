@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Product from './Product'
-import { order,filter } from './actions/actions'
+import { order, filter, search} from './actions/actions'
 import { useState } from 'react';
 
-const Products = ({ product,order,filter }) => {
+const Products = ({ product, order, filter, search }) => {
     var  products = product.products
-
+    var  inputA=product.input
    
         const [input, setInput] = useState({
             currentPage: 1,
@@ -30,9 +30,10 @@ const Products = ({ product,order,filter }) => {
             order(productsOrder.reverse())
         }
     }
-    const handleChangeC = (e) =>{
-        // console.log(e.target.value)
+    const handleChangeC =   (e) =>{
         if(e.target.value === 'new'){
+        //    await  search(inputA)
+            
             var find = products.filter(e => 
                 e.condition === 'new'
             )
@@ -43,6 +44,9 @@ const Products = ({ product,order,filter }) => {
                 e.condition !== 'new'
             )
             filter(find)
+        }
+        if(e.target.value === 'todos'){
+            search(inputA)
         }
     }
    
@@ -76,7 +80,7 @@ const Products = ({ product,order,filter }) => {
             </select>
          </div>
             <div className="filter">
-             filtar por condicion
+             Filtar por condicion<br></br>
             <select
                 class="form-control"
                 name="filtrado"
@@ -85,10 +89,11 @@ const Products = ({ product,order,filter }) => {
                 <option disabled>Seleccione una condicion</option>
                 <option value="new" >Nuevo</option>
                 <option value="used">Usado</option>
+                <option value="todos">Todos</option>
             </select>
          </div>
+             <h2>Pagina {input.page}</h2>
          <div className="container">
-             
            {  
                 currentPosts.map((e,i) => {
                   return <Product 
@@ -107,7 +112,7 @@ const Products = ({ product,order,filter }) => {
                     return (
                         
 
-                        <button href ="f" className="pageNumbers" onClick={() => pagination(number)}>
+                        <button href ="f" className="page-link" onClick={() => pagination(number)}>
                             {number}
                         </button>
                         
@@ -122,13 +127,16 @@ const Products = ({ product,order,filter }) => {
 function mapStateToProps(state) {
 
     return {
-        product: state
+        product: state,
+        
     };
 }
 function mapDispatchToProps(dispatch) {
     return {
         order: input => dispatch(order(input)),
-        filter: input => dispatch(filter(input))
+        filter: input => dispatch(filter(input)),
+        search: input => dispatch(search(input)),
+        
     };
 }
 
